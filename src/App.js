@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import Navbar from './Components/Navbar';
+import MovieList from './Components/MovieList';
+import Spinner from './Components/Spinner';
+import { getDiscover } from './actions/movies';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = ({ lists, movies, getDiscover }) => {
+	useEffect(
+		() => {
+			localStorage.setItem('movies','movies')
+			getDiscover('discover');
+		},
+		[getDiscover]
+	);
 
-export default App;
+	return (
+		<div className="App_dashboard">
+			<div className="App">
+				<Navbar />
+				{true ? (
+					Object.keys(lists).map((cat) => (
+						<MovieList key={cat} movies={lists[cat].map((id) => movies[id])} title={cat} />
+					))
+				) : (
+					<div className="App_loader">
+						<Spinner />
+					</div>
+				)}
+			</div>
+		</div>
+	);
+};
+
+const mapStateToProps = (state, ownProps) => ({
+	lists: state.movies.lists,
+	movies: state.movies.movies
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getDiscover: (category) => dispatch(getDiscover(category))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(App);
