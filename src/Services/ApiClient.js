@@ -1,7 +1,7 @@
 const BASE_URL = 'https://movied.herokuapp.com';
 
 export default {
-	getDiscoverMovies: (category) => {
+	getDiscoverMovies: () => {
 		return fetchRequest('discover');
 	},
 	getCategories: () => {

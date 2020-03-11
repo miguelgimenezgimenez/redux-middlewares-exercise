@@ -12,7 +12,7 @@ const App = ({ lists, movies, getDiscover }) => {
 	useEffect(
 		() => {
 			localStorage.setItem('movies','movies')
-			getDiscover('discover');
+			getDiscover();
 		},
 		[getDiscover]
 	);
@@ -41,6 +41,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	getDiscover: (category) => dispatch(getDiscover(category))
+	getDiscover: () => dispatch(getDiscover)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);
