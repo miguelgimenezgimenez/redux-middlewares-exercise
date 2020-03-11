@@ -8,39 +8,39 @@ import { getDiscover } from './actions/movies';
 
 import './App.css';
 
-const App = ({ lists, movies, getDiscover }) => {
-	useEffect(
-		() => {
-			localStorage.setItem('movies','movies')
-			getDiscover();
-		},
-		[getDiscover]
-	);
-
-	return (
-		<div className="App_dashboard">
-			<div className="App">
-				<Navbar />
-				{true ? (
-					Object.keys(lists).map((cat) => (
-						<MovieList key={cat} movies={lists[cat].map((id) => movies[id])} title={cat} />
-					))
-				) : (
-					<div className="App_loader">
-						<Spinner />
-					</div>
-				)}
-			</div>
-		</div>
-	);
+const App = ({ lists, movies, bypass, getCategories }) => {
+    useEffect(
+        () => {
+            bypass();
+        },
+        [ bypass ]
+    );
+								console.log(lists)
+    return (
+        <div className="App_dashboard">
+            <div className="App">
+                <Navbar />
+                {true ? (
+                    Object.keys(lists).map((cat) => (
+                        <MovieList key={cat} movies={lists[cat].map((id) => movies[id])} title={cat} />
+                    ))
+                ) : (
+                    <div className="App_loader">
+                        <Spinner />
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 };
 
 const mapStateToProps = (state, ownProps) => ({
-	lists: state.movies.lists,
-	movies: state.movies.movies
+    lists: state.movies.lists,
+    movies: state.movies.movies
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	getDiscover: () => dispatch(getDiscover)
+    getDiscover: () => dispatch(getDiscover),
+    bypass: () => dispatch({type:"BYPASS"}),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

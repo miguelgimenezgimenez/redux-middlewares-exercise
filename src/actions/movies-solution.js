@@ -5,13 +5,13 @@ export const getCategories = (dispatch, getstate, ApiClient) => {
                 categories.map(({ id, name }) =>
                     ApiClient.getMoviesFromCategory(id).then((moviesList) => {
                         dispatch({ type: 'SET_MOVIES', moviesList });
-                        dispatch({ type: 'SET_LIST', listName: name, list: moviesList });
+                        dispatch({ type: 'SET_LISTS', listName: name, list: moviesList });
                     })
                 )
             )
         )
         .then(() => {
-            console.log('finishe');
+            console.log('finished');
         });
 };
 
