@@ -1,9 +1,7 @@
-
-
 const middleware = (store) => (next) => (action) => {
- console.log(action)
-  next(action)
-
+    next(action);
 };
 
+//next()
+// dispacth ( action )=====> middlleware1 ====> middleware2
 export default middleware;

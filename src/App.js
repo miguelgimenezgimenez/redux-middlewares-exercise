@@ -8,14 +8,13 @@ import { getDiscover } from './actions/movies';
 
 import './App.css';
 
-const App = ({ lists, movies, bypass, getCategories }) => {
+const App = ({ lists, movies, getDiscover, getCategories }) => {
     useEffect(
         () => {
-            bypass();
+            getDiscover();
         },
-        [ bypass ]
+        [  ]
     );
-								console.log(lists)
     return (
         <div className="App_dashboard">
             <div className="App">
@@ -43,4 +42,6 @@ const mapDispatchToProps = (dispatch) => ({
     getDiscover: () => dispatch(getDiscover),
     bypass: () => dispatch({type:"BYPASS"}),
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+

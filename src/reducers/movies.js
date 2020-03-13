@@ -43,10 +43,9 @@ function addToMyList(state, id) {
 }
 
 export default (state = INITIAL_STATE, action) => {
-    console.log(action);
     switch (action.type) {
-								case  "BYPASS":
-									return state
+        case 'BYPASS':
+            return state;
         case 'SET_MOVIES':
             return setMovies(state, action.moviesList);
         case 'SET_LISTS':
